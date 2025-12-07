@@ -1,0 +1,1522 @@
+ \documentclass{article}
+
+
+\title{CW GIT}
+
+\date{2024 nov 18}
+
+\author{Ehsan Esmaeili}
+
+\newpage
+\begin{document}
+
+\section*{structure}
+\subsection*{/}
+\subsection*{/boot}kernel, initrd, bootloader and its config
+\subsection*{/root}
+\subsection*{/home}
+\subsection*{/bin (binary)}user commands (general commands)
+\subsection*{/sbin (system binary)}system commands (administration commands)
+\subsection*{/lib (library)}shared libraries \& kernel modules
+\subsection*{/opt (optional)}third-party applications
+\subsection*{/tmp (temporary)}
+\subsection*{/etc (etcetera)}host confiqurations files
+\subsection*{/dev (device)}
+\subsection*{/mnt (mount)}prepheral devices
+\subsection*{/media}
+\subsection*{/var (variable)}log server, print server, web server, mail server, cache server, client cache, a few applicarion caches,\ldots
+\subsection*{/usr (user)}non-essential executable program struct of usr look like / and important next to /
+\subsection*{/proc (process)}window to kernel
+\subsection*{/sys (system)}window to kernel
+
+\subsection{file}
+every file have code named inode\#
+\subsection{user}
+every user have code named UID
+\subsection{group}
+every group have code named GID 
+\subsection{processor}
+every process have code named PID
+
+
+
+\newpage
+\section*{Commands}
+
+\subsection*{ls}
+ls command use to see all existing file in directory an you can make it optional wiht any switch
+\subsubsection*{-a}
+this switch show you all of file in directory even hidden file
+\subsubsection*{-i}
+show inode of files
+\subsubsection*{-l}
+this swithc show you file with more detale such as (type,user,group,size,modified date)
+
+
+any type of file:
+
+reqular file:-
+
+directory: d
+
+short cut (symbolic link, sym link): l
+
+socket: s
+
+pipe: p
+
+special device-character: c
+
+special device-block: b
+\subsubsection*{*}
+you can filter search by * \\
+* mean zero to infinity character
+\subsubsection*{?}
+mean one character
+\subsubsection*{[character]}
+mean special character
+\subsubsection*{[!character]}
+mean not special character
+\subsubsection*{[a-z]}
+mean a range of character
+\subsubsection*{[!a-z]}
+mean not in range character
+\subsubsection*{{arg1,arg2,\ldots}}
+mean exacly same as every arguman
+\subsection*{pwd}
+show to you corrend directory address from root
+\subsection*{whoami}
+show your user
+\subsection*{cd}
+cd use for change directory
+\subsubsection*{-}
+change between two last address
+\subsubsection*{absolute}
+cd /fjj/ffs/s/f/f
+\subsubsection*{relative}
+cd-./dfff
+cd-../dfdff (parent)
+\subsection*{rm}
+delete
+!rm last rm command run
+\subsubsection*{-r}
+delete directory with content
+\subsubsection*{-f}
+no ask question
+\subsection*{cp}
+copy
+\subsubsection*{-r}
+copy directory
+\subsection*{mkdir}
+make directory
+\subsubsection*{-p}
+make any directory than not exist mkdir -p/s/sd/d
+\subsection*{rmdir}
+delete directory
+\subsection*{clear}
+clear terminal
+\subsection*{mv}
+move file
+rename
+move+rename
+\subsection*{file}
+show type of file
+\subsection*{man command}
+man show you manual of any command and tool to give help
+\subsection*{hostname}
+show hostname
+\subsection*{init}
+\subsubsection*{init 0}
+shutdown os
+\subsubsection*{init 6}
+reboot os
+\subsection*{echo}
+write any thing to any file
+
+echo \texttt{'}     \texttt{'} \texttt{>>} /  /file name
+
+and show variable \texttt{-->} echo \&x
+
+\subsubsection*{echo \$?}
+if = 0 -\texttt{>} last command excute seccesfully
+else last command excute failed
+\subsubsection*{echo \$PATH}
+path of commands
+\subsubsection*{echo \$USER}
+show user
+\subsubsection*{echo \$UID}
+user id
+\subsubsection*{echo \$HOME}
+\~:\(\)
+\subsubsection*{echo \$SHELL}
+default shell
+\subsubsection*{echo \$OLDPWD}
+old pwd
+\subsection*{vi}
+use vi to edit of creat text
+\subsection*{passwd}
+change password for users
+\subsection*{exit}
+exit from user
+\subsection*{su \texttt{-} name}
+switch user to name
+\subsection*{ctrl (r)+fi,..,f6  or ctrl+alt+f1,..f6}
+changing terminal
+\subsection*{more}
+in terminal you have no any thing like scroll so by more can see any thing withot removing
+
+enter to go to the next line
+
+space to go to the next page
+\subsection*{less}
+like more but you can go up and down again and agani and exit with q
+\subsection*{nl}
+count and writh lines
+\subsection*{pipe: \texttt{|}}
+give result of before function and get to next function
+
+cat new.txt \texttt{|} nl \texttt{|} less 
+\subsection*{semicolon: \texttt{;}}
+if gone between to command commands are do like always
+\subsection*{ampersand: \texttt{\&\&}}
+if a command run succesfully them run next command
+\subsection*{vertical bar: \texttt{||}}
+like or do one of command
+
+\#(echo in subshell;exit 4)\&\& echo OK \texttt{||} echo bad exit
+
+in subshell
+
+bad exit
+\subsection*{touch}
+make file
+
+touch a1 a2 a3 b1 b2 b3 c1 c2 c3
+
+touch {a,b,c}{a,2,3} `wildcard'
+\subsection*{sort}
+sort line of file (cat/tac)
+\subsection*{which command}
+tell me which path run `command'
+\subsubsection*{-a}
+tell me all address than run this command
+\subsection*{whereis command}
+give me all path that have `command'
+\subsection*{info command}
+information:\(\)
+\subsection*{useradd/adduser}
+add reqular user
+
+hostname \texttt{>>/>}
+
+date \texttt{>>/>}
+
+dmesg \texttt{>>/>}
+\subsection*{userdel}
+delete user
+\subsection*{qroupadd}
+add qroup
+\subsection*{cat}
+show file text
+\subsubsection*{-n}
+like cat file \texttt{|} nl
+\subsection*{alias}
+save long command to variable
+\subsubsection*{unalias}
+delete alias
+\subsection*{meta character}
+\subsubsection*{*}
+\subsubsection*{?}
+\subsubsection*{[character]}
+\subsubsection*{[!character]}
+\subsubsection*{[a-z]}
+\subsubsection*{[!a-z]}
+\subsubsection*{{arg1,arg2,\dots}}
+\subsection*{df}
+show storage partition
+\subsubsection*{-h}
+show storage partition
+\subsubsection*{-hT}
+show type of partition
+\subsubsection*{-i}
+show inodo if partitions
+\subsection*{lsblk}
+show hard devision
+\subsection*{fdisk}
+make partition
+
+\subsection*{mkfs}
+formating a partition
+
+\subsection*{mount}
+mount a directory to hard
+\subsubsection*{umount}
+un mount a directory
+\subsubsection*{-a}
+
+mount every partition in fstab file that added new
+
+\subsection*{history}
+show command history
+!5 run fifth command from top
+!-5 run fufth command from down
+!!/!-1 run last command
+!p last command that start with p
+
+history -d 149 delet line 149
+
+history -c clear all history
+
+history -w after -c
+\subsection*{tune2fs}
+about partition
+\subsubsection*{-l}
+make list propertis of a partition
+\subsection*{grep}
+filter a text by a keyword
+\subsection*{mkswap}
+make partition swap after choosing filesystem linux swap
+
+mkswap /dev/name
+\subsection*{swapon}
+make swap on
+
+swapon /dev/name
+\subsection*{swapoff}
+make swap of
+
+\subsection*{uname -a}
+kernel version
+
+\subsection*{du -csh /addres}
+list disk usage of addres physicaly
+
+\subsection*{chmod}
+change permission
+
+with cahr num of | reference
+\texttt{---------}
+
+ u | g | o
+ 
+||a||
+
+chmode o+w file name
+
+\subsection*{chown}
+change owner
+\subsubsection*{-r}
+do to all child file
+\subsubsection*{:}
+chgrp = chmod \texttt{:} 
+\subsection*{chgrp}
+change group
+\subsection*{newgrp}
+change principle group
+\subsection*{stat file}
+status of file
+\subsection*{umask}
+set default permission but woek inversly
+
+\subsection*{find}
+find [addres] -[option] [variable]
+
+find / -name `*.mp3'
+
+find / -user ali
+
+find / -qroup it
+
+find / -perm 0400
+
+find / -size +10M
+
+find / -size -500M
+
+find / -mtime -7
+
+find / -atime -2
+
+find / -ctime -14
+
+find / -mmin -60
+
+find / -amin -60
+
+find / -cmin -30
+\\
+find / -size +10M -size -50M
+
+find / -mtime +7 -mtime -14
+
+find / -amin +30 -amin -60
+\\
+find / -type d -name test in double coutation
+
+find / -type f -name
+\\
+find /tmp -name name -user ali -group it -perm 0400 -size +40M
+
+
+2> /dev/nul in end command not show you error
+
+exec rm -f {} \; at the end of file delete all founded or any command
+
+find / -lname for sym link 
+
+find / -samefile for link
+
+find / -inum number for link by inod
+
+\subsection*{expr}
+
+do math equation
+
+\subsection*{bash}
+open new bash
+\subsection*{ps}
+show maked bash
+
+\subsection*{mail}
+make email and can send to another user and can be read by mail commands
+
+male ali: mail to ali
+\subsection*{reset}
+reset the terminal and fix some bugs
+
+\subsection*{gzip}
+zip the file 
+
+-d \texttt{||} gunzip to unziping
+
+show with gzcat
+\subsection*{bzip2}
+compress better usualy
+   
+-d \texttt{||} bunzip2 to unziping
+
+show with bzcat
+\subsection*{tar (tape archiver)}
+
+-f filename (file)
+
+-c (creat)
+
+-x (extract)
+
+-t (test)
+
+-C path (destionation)
+
+-v (verbose)
+
+tar -cf \@./gooni.tar \@./m*
+
+-z (gzip, gunzip)
+
+-j (bzip2, bunzip2)
+
+tar -czf gooni.tar.gz  fileneme
+
+tar -zxf gooni.tar.gzcat
+
+tar -cjf gooni.tar.bz2 filename
+
+tar -jxf gooni.tar.bz2
+
+\subsection*{time command}
+
+show time to excure totaly a command
+
+\subsection*{wget link}
+
+download from link
+
+\subsection*{sleep}
+sleep 5
+
+dilay for five second
+
+\subsection*{seq}
+
+seq 1 10
+
+write one to ten in order
+
+\subsection*{}
+%////////////////////////////////////////////////////////////////////////////////
+\newpage
+\section*{any thing}
+
+\subsection*{/etc/qroup}
+list of all group
+\subsection*{/proc/swaps}
+list of swaps
+\subsection*{/proc/meminfo}
+list of memory
+\subsection*{/proc/cpuinfo}
+information of cpu
+\subsection*{/proc/version}
+version of linux
+\subsection*{/etc/passwd}
+name of all user 
+maked user exist an 1000 to up
+
+\subsection*{/etc/fstab}
+
+file of partition mount
+\subsection*{/dev}
+partition
+
+/dev/null lool like black hole 
+
+
+\subsubsection*{/dev/hda,b,c,\ldots IDE (PATA)}
+\subsubsection*{/dev/sda,b,c,\ldots (SCSI)}
+\subsubsection*{/dev/sda,b,c,\ldots (SATA)}
+\subsubsection*{/dev/sda,b,c,\ldots cool disk}
+
+\subsection*{file of variable}
+
+/.bash-profile underline instead minus
+
+/.profile 
+
+/.bashrc
+
+/.bash-logout
+
+\subsection*{vi app}
+basic text editor in any linux
+\subsubsection*{i}
+go to the insert mode
+\subsubsection*{I}
+like i just go to the first of line
+\subsubsection*{shift+r}
+go to replace mode repalce new to old char
+\subsubsection*{esc key}
+back to basic mode
+\subsubsection*{:}
+go to command line
+
+q/q! \texttt{=>} quite from vi
+
+w/w! \texttt{=>} save text /fours save
+
+w /addres name\texttt{=>}  save as
+
+n/n! \texttt{=>} open next file
+
+e/e! /addres name\texttt{=>}  open file in addres/open force
+
+r /addres name\texttt{=>  \ }  write file in this file
+
+x/ZZ \texttt{=>} save and quite
+
+every bash command \texttt{=>} \ldots
+
+set nu \texttt{=>} set nummber to any line
+
+nummber \texttt{=>} go to line number
+
+\subsubsection*{v}
+go to visual mode
+\subsubsection*{o}
+open new line and go to insert mode
+\subsubsection*{O}
+open new line before curser and go to insert mode
+
+\subsubsection*{hjkl}
+left down up right
+
+3j = j+j+j
+
+\subsubsection*{H,L,gg,G}
+
+H go to first line of page
+
+L go to last line of page
+
+gg go to first of file
+
+G go to last line of file
+\subsubsection*{w,b}
+
+w go to next word
+
+b go to before word
+
+\subsubsection*{ \^ 0 \$ } 
+
+\^ go to first of first word of line
+
+0 go to first of line
+
+\$ go to last of line
+
+\subsubsection*{ctrl+f,ctrl+b}
+
+f go to forward page
+
+b go to back page
+
+\subsubsection*{x,X}
+
+x delete from front of curser
+
+X delet from back of curser
+
+\subsubsection*{s,S}
+
+s delete one char and go to insert mode
+
+S delete one line and go to insert mode
+\subsubsection*{dd}
+cut total line
+
+7dd cut 7 line
+\subsubsection*{d num jahat}
+cut nummber type jahat
+
+\subsubsection*{c}
+like d them go to insert mode
+\subsubsection*{cc}
+like dd then go to insert mode
+
+\subsubsection*{y}%yank
+copy to clip board
+\subsubsection*{yy}
+copy total line to clip board
+
+\subsubsection*{p,P}
+
+p past to right of curser
+
+P past to left of curser
+
+\subsubsection*{search}
+
+/word
+
+?word
+
+n down
+
+N up
+
+\subsubsection*{u,ctrl+r,.}
+undo
+
+redo
+
+repate last command
+\subsection*{partitioning}
+
+cable connection 
+
+partitioning fdisk
+
+chossing filesystem
+
+format mkfs
+
+mount mount!=unmount
+
+to view df -h
+
+\subsubsection*{partitioning method}
+1- MBR Schene (MSDOS Style)\\
+Master Boot Record ----\texttt{>} 512B
+\newline
+2- GPT Scheme\\
+GUID Partition Table
+\subsubsection*{MBR}
+max 4
+
+if primary = max 4 extended=n/a logical=n/a
+if primary = 3 extended= max 1 logical= max 11
+extended partion cant store data and contain logical partition
+
+\subsubsection*{filesystem}
+
+native | ext2,3,4,btrfs,reiserfs\\
+non-native if 
+
+    with modules | XFS,ZFS
+
+    withoun module | APFS,NTFS
+\\
+cross-platfor | FAT12,16,32,iso9660,CDFS (joliet)
+\\
+small partition \texttt{<=} 2TB \texttt{<} large partition
+
+\subsection*{virtual memory}
+windos page file
+\\
+linux swap
+\\
+with LRU algorithm (least Recently Used)
+\subsubsection*{free -h}
+show your swap
+\subsection*{dd if=/dev/zero of=/root/myswap bs=500M count=1}
+make 500M free of / partition and named myswap
+
+then with mkswap /root/myswap and swapon /root/myswap add it to main swam
+
+\subsection*{link}
+\subsubsection*{hard link / link}
+
+make with ln filename linkname
+
+like backup
+
+look like pointer to inode
+
+not work in diffrent partititon
+\subsubsection*{symbolic link / sym link}
+make with ln -s filename linkname
+
+this link look like shortcut 
+
+
+\subsection*{variable}
+\subsubsection*{system var: usualy capital}
+two module
+
+local var | v = any
+
+environment var | export v = any
+
+variable in linux:
+
+question sigh (last command)
+
+PATH (addresss of commands)
+
+USER (user name that login)
+
+HOME (addres of home)
+
+SHELL (addres of bash)
+
+PWD (save addres of current directory)
+
+OLDPWD () work with cd \texttt{-}
+
+HISTSIZE (500 last command)
+
+MAIL (address of file than save email of user)
+
+HOSTNAME
+
+LS (underscore sign) COLORS
+
+\$ current shell PID
+
+PPID curren shell parent PID
+
+PS1 file of text than in terminal showed before every commands
+\\
+ps1 code:
+
+u user
+
+h computer name
+
+H hostname
+
+d date
+
+t time
+
+w totla current addres
+
+W last current directory
+
+n new line
+
+\$ user type sign
+
+e color code
+
+\dots\dots\dots\dots\dots\dots\dots
+
+env list of total environment variable
+
+\subsubsection*{user defined var: usualy small}
+
+\subsection*{Man Pages:}
+
+1.user commands (general commands)
+
+2.system calls
+
+3.library class
+
+4.
+
+5.config files
+
+6.games
+7.miscellaneous
+
+8.system commands (administration command)
+
+9.kernel routines
+
+all in /usr/share/man/\dots
+
+whatis fdisk
+
+apropos partition
+
+fdisk --help (wiht all commands)
+\subsection*{text processing}
+work with delimiter
+
+set delemiter 
+
+cut -d double coutation and delemiter -f 1 toby- 3 /etc/passwd > u3
+cut -d double coutation and one char -f 1,3 /etc/passwd
+
+-f feild
+
+head file
+
+heat default=10 line
+
+head -5 file name
+
+tail like head
+
+tale or head \texttt{-}n
+
+expand command change tab to space default 8 and you can use -t 5 to five space
+
+unexpand change space to tab
+
+od -tc/tc file name show tab or spase and totaly char
+
+sort
+
+-r reverce
+
+-n sort numeric
+
+-k 2 with feild 2
+
+wc line/word/char number
+
+-l -w -m -c --byte
+
+uniq filename del repared line
+
+-d print repeated line
+
+-D print repeated line and count of repeated
+
+-c count of repeat
+
+join file1 file2 one colum most be same an another file
+
+join -1 3 -2 4 file1 file2 join with another column 3 in file one and 4 in file two
+
+paste write file one them filetwo in row
+
+-d and double coutation can use delemiter
+
+split -num filename name of new file 
+
+default 1000line
+
+split -b 4.7G file name file
+
+cat file1 file2 show file2 after file1
+
+rev recerse in every line
+
+tac revers in total of file
+
+tr a-z A-Z if a them A just srandard entry
+
+recive operator <
+
+xargs in standard entry and write all of file in one line
+
+ls /home 1>filename 2>filename/\&1 pipe one
+
+tee command like three way on input two out put that on of always file amd another is terminal of pipe
+
+tee -a append text
+
+grep anything
+
+grep -v none have 
+
+grep -i case insensitive
+
+grep -n line nubber
+
+or sign cahr at the first of line bee char
+
+\& char at teh last of line be char
+
+\ <word\> just word total in coutation
+
+[abcd] [a-b] 
+
+or sign in bracet mean not these char
+
+.show lines than not null or just enter
+
+\subsection*{Processes}
+spawn
+
+-PID
+
+-lifetime normal exit or abnormal exit
+
+-UID
+
+-GID
+
+-Parent Processes
+
+-workingdirectory
+
+-environment
+
+-\dots
+\\
+ps show process
+
+-A (all)
+
+-e (all)
+
+-a (attached processes)
+
+-f (forest mode) ps tree -h/-p
+
+-w (wide output format)
+
+-l (long format)
+
+-u (user format)
+
+-x (background processes)
+
+-C command (special commands)
+
+-U username (User command)
+
+most useful
+
+ps -aux
+
+ps -ef
+
+ps -el 
+
+top like taskmanager and put space lead to refres bar (default 3s)
+
+uptime show some detale like time uptime upusers lead avg
+
+d change delay 
+
+k kill a process
+
+kill -l  list of signals
+
+SIGHUP reload 1
+
+SIGINT interrupt,cancle 2          ctrl+c
+
+SIGKILL kill 9                     
+
+SIGTERM terminate 15
+
+SIGCONT continue,unfreeze,unpause 18
+
+SIGTSTP stop,freeze,pause 20       ctrl+z
+
+kill -15 PID\#
+
+kill PID\# default -15
+
+kill -9 PID PID PID PID PID
+
+killal vi
+
+NI (nice of process) priority of process between -20 to +19
+and +19 wors priority and -20 is the best
+just super user can lower priority
+
+nice -4 vi myfile
+
+nice --vi myfile
+
+renice in during the process change priority
+
+renice 9 PID
+
+renice -9 PID
+
+tail -f show last of file and live it
+
+du -csh /var
+
+du -cs /var
+
+du -sh /var
+
+du -ch /var
+
+jobs -l running command
+
+fg num run one of those to foregrand
+
+bg like fg but run in back ground
+ 
+\& at the last of command lead to command run in background
+
+nohub anycommand \& keep running after logout 
+
+\subsection*{useradd}
+swithc
+ 
+-d new home dir addres
+
+-m make address than is up in disk
+
+-g name of principle user group 
+
+-G name of subordiner user qrouop 
+
+-s address of excuring default shell 
+
+-u user UID
+
+-c command of discription
+
+usermod -L name
+
+usermod -U name
+
+passwd -l name
+
+passwd -u name
+
+cshs to chang shell  
+
+\subsection*{login}
+l
+
+su \texttt{-} ali login mode
+
+su ali non-login mode
+
+/etc/skel/ files are coped to any when an account maked
+
+/.bash (underline) profile 1 3 no excute in none login mode
+
+/.bashrc 2 2
+
+/etc/bashrc 3 1
+
+number is order of read and do
+
+\dots\dots\dots\dots
+
+/.bash (underline) logout 
+
+su/su -empty switch user to root
+
+visudo like vi /etc/sudoer
+
+visudo of vi /etc/sudoer in this file can change accesblity of another user
+and user than in sudoer file can be like root and log be save its activity
+
+in this file \% before name mean its group not user
+
+in some linux root have no password
+with sudo su \texttt{-} root and them change root password
+
+useradd -u 500 newusr if before exsist an user with UID 500 and we delete it
+and want to get this user to new user use this command
+
+userdel -r name delete user and home directory
+
+groupdel name
+
+pwuncomv deactivate shadowing grpunconv
+
+pwconv activate shadowing grpunconv
+
+\subsection*{boot initialisation and shutdown}
+
+\hbox{BIOS} (Basic input/output System)
+
+hardware clock (CMOS battery)
+
+software clock
+
+CHS (sylinder/head/sector)
+LBA (logical block addressing)
+
+EFI
+
+UEFI
+
+\hbox{MBR} (master boot record)
+
+512 B
+
+446 B (bootloader infrmation)
+
+64 (partition tavle informatin)
+
+2B (MBR validation check)
+
+most famous bootloader in linux
+
+\hbox{1. LILO (linux loader) lili /etc/lilo.conf
+}
+\hbox{2. Grand unified boorloader (GRUB legacy) grub /boot/grub/menu.lst /boot/grub/grub.conf
+/etc/grub.conf  FHS  LSB}
+\hbox{3. GRUB2 grub  /boot/grub/grub.cfg /boot/grub2/grub.cfg /etc/\dots}
+
+initrd is a file than kernel need to it to prevent  detectivr loop
+
+\hbox{bootloader}
+\hbox{kernel }
+\hbox{init}
+\hbox{runlevel}
+
+init and telinit to change runlevel
+
+init 0 shotdwon
+
+inti 1 single user mode
+
+init 2 multiuser -nfs -x11
+
+inti 3 multiuser +nfs -x11
+
+init 4 unused
+
+init 5 multiuser +nfs +x11
+
+init 6 reboot 
+
+we cant use init 0 or 6 in default 
+
+usualy default is 5 or 3
+
+/etc/inittab
+
+runlevel command show before and now runlevel
+N mean shud down and s mean single user mode
+
+unused runlevel work like before runlevel init 4 = init 3
+
+startx up graphic sevise manual withot use init 5
+
+service web ssh database dns proxy/cache 
+
+applications apache openssh-server vsftb mysql bind squid
+
+daemon httpd sshd vsftpd mysqld named squid
+
+name of script like daemon
+
+/etc/init.d/sshd stop|start|status|restart|reload|
+
+/etc/rc0.d
+
+/etc/rc1.d
+
+/etc/rc2.d
+
+/etc/rc3.d
+
+/etc/rc4.d
+
+/etc/rc5.d
+
+/etc/rc6.d
+
+S{n}{n}sshd to start
+
+K{n}{n}sshd to stop
+
+for start s00 to  s99 in priority in /etc/rc{n}
+
+also for end
+
+\hbox{redhat base:}
+1. LSB\@: /etc/init.d/sshd stop|start|status|restart|reload|\dots
+
+2\@. service sshd stop|\dots
+
+3\@. chkconfig
+
+4\@. systemstl
+
+\hbox{debian base}
+
+1. LSB
+
+2\@. service
+
+3\@. update-rc.d
+
+4\@. systemctl
+
+example for 3
+
+update-rc.d crond default
+
+update-rc -f dovecot remove
+
+update-rc -f dovecot stop 24 2 3 4 5
+
+\subsection*{service managment}
+
+-System V (SssysVInit) --> init (centoOS 5, older)
+
+service sshd stop
+
+chkconfig || update-rc.d
+
+init 0
+
+-upstart --> init (CentoOS 6)
+
+initctl stop sshd
+
+chkconfig || update-rc.d
+
+init 0
+
+-systemd --> (CentOS 7, newer)
+
+systemctl stop sshd ----> at moment
+
+systemctl start sshd ---> at moment
+
+systemctl disable sshd -> next boot and always
+
+systemctl enable sshd---> next boot and always
+
+systemctl poweroff
+
+-shutdown command
+
+shutdown -h now
+
+shutdown -h 120
+
+shutdown -r 10
+
+
+-h (shutdown, halt)
+
+-r (reboot)
+
+-c (cancle)
+
+-f (fast boot)
+
+-F (force filesystem check)
+
+\subsection*{package managment}
+
+1\@. redhat rpm *.rpm
+
+2\@. debian dpkg *.deb
+
+a-b.c.d-e.f.rpm
+
+a=package name
+
+b=version
+
+c=major release (major revision)
+
+d=minor release (minor revision)
+
+e=build number
+
+f=arch. --> x89, i386, i486, i586, i686
+  --> 32bit
+--> x86{underline}64, amd64 --> 64bit
+
+--> sparc, 
+
+--> PowrPC, 
+
+--> arm, 
+
+--> \dots, 
+
+--> all, noarc (suit for any device)
+
+\hbox{rpm}
+
+-i (install)
+
+-u (update)
+
+-U (install/update)
+
+    -v (verbose)
+
+    -h (hash)
+
+-e (erase)
+
+-q (query)
+
+    -a (list all package names installed on this system)
+
+    -f (file)
+
+    -l (list all package files)
+
+    -c (list all package config files)
+
+which chmod
+
+rpm -qf /usr/bin/chmod
+
+\hbox{dpkg}
+
+-i (install) = rmp -i
+
+-r (remove)  = rmp -e
+
+-s (status, query)  = rmp -q
+
+-S (search) = rmp -qf
+
+-l (list all installed package) = rmp -qa
+
+-L (list all package files) = rmp -ql
+
+\hbox{wrapper}
+
+1.yum (redhat base)
+
+2.apt (debian base)
+
+\hbox{yum}
+(yellowdog updater madified)
+
+/etc/yum.conf
+
+/etc/yum.repos.d/---.repos
+
+yum update
+
+yum update appname
+
+yum install appname
+
+yum remove appname
+\hbox{apt}
+(advanced package tools)
+
+/etc/apt/sources.list
+
+/etc/apt/sources.list.d/official-package-repositories.list
+
+apt -get update
+
+apt -get upgrade
+
+apt -get upgrade appname
+
+apt -get install appname
+
+apt -get remove appname
+
+-get is optional
+
+\subsection*{shell:}
+
+sh, csh, ksh, tcsh, zsh, \dots bash, \dots
+
+you shold write your command in a text and run it with
+bash command 
+
+>>echo clear >> a
+
+>>bash a
+
+run file as alone command most use addres 
+
+>>addres/a to run
+
+or
+
+vi \texttt{.}bash{underline}profile
+
+and change PATH (add address of this file)
+
+better named file than have \texttt{.}sh at end
+
+\# to comment
+
+\#! shibang addres runner of command 
+so \#! /bin/bash
+
+>>which top
+>>ls -l /usr/bin/top
+
+>>ls -l `which top\texttt{`}
+
+>>ls -l \$(which top)
+
+these command are equal to each other
+
+aotumatic run in linux in cron service
+
+crontab
+
+-l list
+
+-r remover
+
+-e edit
+
+min hrs dom moy dow cmd these caloumn ser the time of script
+
+15  8   *   *   *   /root/class/myscript.sh  these line run than exploitat every day in 8:15
+
+15  8\texttt{-}10   *   *   *   /root/class/myscript.sh
+
+15  8,17  *   *   *   /root/class/myscript.sh
+
+
+how work with crone
+
+cronetab -e
+
+write => 53 10 * * * /root/class.myscript.shadowing
+
+\subsection*{networt}
+
+\hbox{OSI}
+client           server
+1.Application    A
+2.Presentation   P
+3.Session        S
+4.Transport      T
+5.Network        N
+6.Data link      D 
+7.Phisical      P
+
+\hbox{physical layer}
+
+Wireless   wlan0
+
+Ethernet eth0
+
+priority with Ethernet
+
+\hbox{naming approaches}
+1-Hostname = computerP{underline}name.domain{underline}name
+
+www.google.com
+
+mail.yahoo.com
+
+kashani.lpir.org
+
+(org, com, ir) TLD (top level domain)
+
+(google, yahoo, lpir) SLD (second level domain)
+
+www, mail sub\texttt{-}domain name
+
+change hostname in /etc/hostname
+
+2-Physycal addr (mac addr)
+
+dhclient (IP, Gateway, DNS)
+
+3-IP Addr
+
+ifconfig eth0 192.168.10.11
+
+default netmasks 
+
+--> A\@:255.0.0.0
+
+--> B\@:255.255.0.0
+
+--> C\@:255.255.255.0
+
+ifconfig eth0 192.168.10.11 netmask
+
+11111111.11111111.11111111.11111111.00000000
+
+debian base: /etc/network/interface
+
+redhat base: /etc/sysconfig/network-scripts/ifcfg-eth0
+
+\hbox{command}
+ifconfig
+
+ip addr show  | ip a
+
+\dots
+
+ifconfig eth0 192.168.10.11
+
+ip addr add 192.168.10.11 dev eth0
+
+\dots
+
+ifconfig eth0 down | ifdown eth0
+
+ip link set eth0 down
+
+\dots
+
+ifconfig eth0 up | ifup eth0
+
+ip link set eth0 up
+
+\dots
+
+route -n
+
+ip route show | ip r
+
+\dots
+
+route add default gw 192.168.10.1
+
+ip route add default via 192.168.10.1
+
+\hbox{ssh (22)}
+
+client ------------> server A --------------> server B
+
+openssh-clients      openssh-server (22)
+                     openssh-clients        openssh-server (22)
+
+1.remote console
+
+ssh username@IP
+
+2.secure copy
+
+scp usesrname@IP:path username@IP:path
+
+for each user that i write in command in terminal can write no username and just write addres
+
+
+\end{document}  

@@ -1,0 +1,518 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+% \usepackage[farsi]{babel}
+% \usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+
+% تنظیم فونت فارسی
+% \setmainfont{Arial}
+% \newfontfamily\farsifont{Arial}
+
+% تنظیمات صفحه
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{LPIC-1 Study Notes}}
+\fancyhead[R]{\textbf{Ehsan Esmaeili}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% تنظیمات بخش‌ها
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{blue!70!black}}
+{}{0pt}{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{green!50!black}}
+{}{0pt}{}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries\color{orange!70!black}}
+{}{0pt}{}
+
+% تنظیمات لیست
+\setlist[itemize]{leftmargin=*, label=\textbullet}
+\setlist[enumerate]{leftmargin=*, label=\arabic*.}
+
+% تنظیمات کد
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+    tabsize=2
+}
+
+% عنوان
+\title{
+    \textbf{\Huge LPIC-1: Linux Professional Institute Certification} \\
+    \vspace{0.5cm}
+    \Large Comprehensive Study Notes \\
+    \vspace{0.2cm}
+    \normalsize Version 1.0
+}
+\author{\textbf{Ehsan Esmaeili}}
+\date{\textbf{November 18, 2024}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \rule{0.8\textwidth}{0.5pt}
+\end{center}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Disclaimer}]
+    These notes are prepared for LPIC-1 certification exam preparation. They cover essential Linux concepts, commands, and system administration topics.
+\end{tcolorbox}
+
+\tableofcontents
+\newpage
+
+\section{Linux Filesystem Hierarchy Standard (FHS)}
+\label{sec:structure}
+
+\begin{tcolorbox}[colback=green!5!white, colframe=green!75!black, title=\textbf{Key Points}]
+    Understanding the Linux directory structure is fundamental for system administration.
+\end{tcolorbox}
+
+\subsection{Directory Structure}
+\begin{itemize}
+    \item \textbf{/} - Root directory
+    \item \textbf{/boot} - Kernel, initrd, bootloader and its configuration
+    \item \textbf{/root} - Root user's home directory
+    \item \textbf{/home} - Users' home directories
+    \item \textbf{/bin} (binary) - User commands (general commands)
+    \item \textbf{/sbin} (system binary) - System commands (administration commands)
+    \item \textbf{/lib} (library) - Shared libraries \& kernel modules
+    \item \textbf{/opt} (optional) - Third-party applications
+    \item \textbf{/tmp} (temporary) - Temporary files
+    \item \textbf{/etc} (etcetera) - Host configuration files
+    \item \textbf{/dev} (device) - Device files
+    \item \textbf{/mnt} (mount) - Mount point for peripheral devices
+    \item \textbf{/media} - Mount point for removable media
+    \item \textbf{/var} (variable) - Variable data (logs, spool, cache, etc.)
+    \item \textbf{/usr} (user) - Non-essential executable programs
+    \item \textbf{/proc} (process) - Virtual filesystem providing process and kernel information
+    \item \textbf{/sys} (system) - Virtual filesystem providing system information
+\end{itemize}
+
+\subsection{System Identifiers}
+\begin{itemize}
+    \item \textbf{File}: Every file has a unique identifier called \texttt{inode\#}
+    \item \textbf{User}: Every user has a unique identifier called \texttt{UID}
+    \item \textbf{Group}: Every group has a unique identifier called \texttt{GID}
+    \item \textbf{Process}: Every process has a unique identifier called \texttt{PID}
+\end{itemize}
+
+\newpage
+\section{Basic Linux Commands}
+\label{sec:commands}
+
+\subsection{File Listing - \texttt{ls}}
+The \texttt{ls} command lists files and directories.
+
+\begin{lstlisting}[language=bash, caption=ls command examples]
+ls          # Basic listing
+ls -a       # Show all files including hidden
+ls -l       # Long listing with details
+ls -i       # Show inode numbers
+ls -la      # Combine options
+\end{lstlisting}
+
+\subsubsection*{File Types in Detailed Listing}
+\begin{itemize}
+    \item \texttt{-} - Regular file
+    \item \texttt{d} - Directory
+    \item \texttt{l} - Symbolic link
+    \item \texttt{s} - Socket
+    \item \texttt{p} - Pipe
+    \item \texttt{c} - Character device
+    \item \texttt{b} - Block device
+\end{itemize}
+
+\subsubsection*{Wildcards and Pattern Matching}
+\begin{lstlisting}[language=bash]
+ls *.txt           # All .txt files
+ls file?.txt       # file1.txt, file2.txt, etc.
+ls [abc]*          # Files starting with a, b, or c
+ls [!abc]*         # Files not starting with a, b, or c
+ls {file1,file2}   # Specific files
+ls file[1-5].txt   # Files file1.txt through file5.txt
+\end{lstlisting}
+
+\subsection{Navigation Commands}
+\begin{itemize}
+    \item \textbf{\texttt{pwd}} - Print working directory
+    \item \textbf{\texttt{whoami}} - Display current username
+    \item \textbf{\texttt{cd}} - Change directory
+    \begin{itemize}
+        \item \texttt{cd -} - Switch between two last directories
+        \item \texttt{cd /path} - Absolute path
+        \item \texttt{cd ./dir} - Relative path
+        \item \texttt{cd ../dir} - Parent directory
+    \end{itemize}
+\end{itemize}
+
+\subsection{File Operations}
+\begin{itemize}
+    \item \textbf{\texttt{rm}} - Remove files
+    \begin{itemize}
+        \item \texttt{rm -r} - Remove directories recursively
+        \item \texttt{rm -f} - Force removal without confirmation
+    \end{itemize}
+    \item \textbf{\texttt{cp}} - Copy files
+    \begin{itemize}
+        \item \texttt{cp -r} - Copy directories recursively
+    \end{itemize}
+    \item \textbf{\texttt{mv}} - Move/rename files
+    \item \textbf{\texttt{mkdir}} - Create directories
+    \begin{itemize}
+        \item \texttt{mkdir -p} - Create parent directories if needed
+    \end{itemize}
+    \item \textbf{\texttt{rmdir}} - Remove empty directories
+    \item \textbf{\texttt{touch}} - Create empty files or update timestamps
+\end{itemize}
+
+\subsection{File Examination}
+\begin{itemize}
+    \item \textbf{\texttt{file}} - Determine file type
+    \item \textbf{\texttt{cat}} - Concatenate and display files
+    \begin{itemize}
+        \item \texttt{cat -n} - Number all output lines
+    \end{itemize}
+    \item \textbf{\texttt{more}} - View file contents page by page
+    \item \textbf{\texttt{less}} - Improved version of \texttt{more}
+    \item \textbf{\texttt{nl}} - Number lines of files
+\end{itemize}
+
+\subsection{System Information}
+\begin{itemize}
+    \item \textbf{\texttt{hostname}} - Show or set system hostname
+    \item \textbf{\texttt{uname -a}} - Show all system information
+    \item \textbf{\texttt{df}} - Display disk space usage
+    \begin{itemize}
+        \item \texttt{df -h} - Human readable format
+        \item \texttt{df -hT} - Show with filesystem type
+        \item \texttt{df -i} - Show inode information
+    \end{itemize}
+    \item \textbf{\texttt{du}} - Estimate file space usage
+    \begin{itemize}
+        \item \texttt{du -sh} - Summary in human readable format
+        \item \texttt{du -csh} - Total summary
+    \end{itemize}
+    \item \textbf{\texttt{lsblk}} - List block devices
+    \item \textbf{\texttt{free -h}} - Display memory usage
+\end{itemize}
+
+\subsection{Text Processing}
+\begin{itemize}
+    \item \textbf{\texttt{grep}} - Search text using patterns
+    \begin{itemize}
+        \item \texttt{grep -i} - Case insensitive
+        \item \texttt{grep -v} - Invert match
+        \item \texttt{grep -n} - Show line numbers
+    \end{itemize}
+    \item \textbf{\texttt{cut}} - Remove sections from lines
+    \item \textbf{\texttt{sort}} - Sort lines of text
+    \item \textbf{\texttt{uniq}} - Report or omit repeated lines
+    \item \textbf{\texttt{wc}} - Word count
+    \begin{itemize}
+        \item \texttt{wc -l} - Count lines
+        \item \texttt{wc -w} - Count words
+        \item \texttt{wc -c} - Count bytes
+    \end{itemize}
+\end{itemize}
+
+\subsection{Permission Management}
+\begin{itemize}
+    \item \textbf{\texttt{chmod}} - Change file permissions
+    \begin{itemize}
+        \item \texttt{chmod u+w file} - Add write permission for user
+        \item \texttt{chmod 755 file} - Numeric permission setting
+    \end{itemize}
+    \item \textbf{\texttt{chown}} - Change file owner
+    \begin{itemize}
+        \item \texttt{chown -r} - Recursive ownership change
+        \item \texttt{chown user:group file} - Change both owner and group
+    \end{itemize}
+    \item \textbf{\texttt{chgrp}} - Change file group
+    \item \textbf{\texttt{umask}} - Set default file permissions
+    \item \textbf{\texttt{stat}} - Display file status
+\end{itemize}
+
+\subsection{Process Management}
+\begin{itemize}
+    \item \textbf{\texttt{ps}} - Report process status
+    \begin{itemize}
+        \item \texttt{ps aux} - Detailed process information
+        \item \texttt{ps -ef} - Full format listing
+        \item \texttt{ps -el} - Long format
+    \end{itemize}
+    \item \textbf{\texttt{top}} - Dynamic real-time view of processes
+    \item \textbf{\texttt{kill}} - Send signals to processes
+    \begin{itemize}
+        \item \texttt{kill -9 PID} - Force kill process
+        \item \texttt{kill -15 PID} - Terminate gracefully
+    \end{itemize}
+    \item \textbf{\texttt{nice}} - Run with modified scheduling priority
+    \item \textbf{\texttt{renice}} - Alter priority of running process
+\end{itemize}
+
+\subsection{Package Management}
+\subsubsection{RPM-based Systems (RedHat/CentOS/Fedora)}
+\begin{itemize}
+    \item \texttt{rpm -i package.rpm} - Install package
+    \item \texttt{rpm -e package} - Remove package
+    \item \texttt{rpm -q package} - Query package
+    \item \texttt{rpm -qa} - List all installed packages
+\end{itemize}
+
+\subsubsection{APT-based Systems (Debian/Ubuntu)}
+\begin{itemize}
+    \item \texttt{apt install package} - Install package
+    \item \texttt{apt remove package} - Remove package
+    \item \texttt{apt update} - Update package list
+    \item \texttt{apt upgrade} - Upgrade packages
+\end{itemize}
+
+\newpage
+\section{System Configuration Files}
+\label{sec:configfiles}
+
+\begin{tcolorbox}[colback=orange!5!white, colframe=orange!75!black, title=\textbf{Important Configuration Files}]
+    These files are crucial for system administration and troubleshooting.
+\end{tcolorbox}
+
+\begin{itemize}
+    \item \textbf{/etc/passwd} - User account information
+    \item \textbf{/etc/group} - Group information
+    \item \textbf{/etc/shadow} - Secure user password information
+    \item \textbf{/etc/fstab} - Filesystem table
+    \item \textbf{/etc/hostname} - System hostname
+    \item \textbf{/etc/hosts} - Static hostname lookup table
+    \item \textbf{/etc/resolv.conf} - DNS resolver configuration
+    \item \textbf{/etc/sudoers} - Sudo configuration
+    \item \textbf{/etc/ssh/sshd\_config} - SSH server configuration
+    \item \textbf{/etc/crontab} - System cron jobs
+\end{itemize}
+
+\subsection{User Environment Files}
+\begin{itemize}
+    \item \textbf{\textasciitilde/.bash\_profile} - Login initialization
+    \item \textbf{\textasciitilde/.bashrc} - Non-login shell initialization
+    \item \textbf{\textasciitilde/.profile} - Default profile
+    \item \textbf{\textasciitilde/.bash\_logout} - Logout actions
+\end{itemize}
+
+\subsection{System Information Files}
+\begin{itemize}
+    \item \textbf{/proc/cpuinfo} - CPU information
+    \item \textbf{/proc/meminfo} - Memory information
+    \item \textbf{/proc/version} - Linux version
+    \item \textbf{/proc/swaps} - Swap information
+    \item \textbf{/proc/loadavg} - System load average
+\end{itemize}
+
+\newpage
+\section{Network Configuration}
+\label{sec:network}
+
+\subsection{Network Commands}
+\begin{itemize}
+    \item \textbf{\texttt{ifconfig}} - Configure network interfaces
+    \item \textbf{\texttt{ip addr show}} - Show IP addresses
+    \item \textbf{\texttt{route -n}} - Display routing table
+    \item \textbf{\texttt{ping}} - Test network connectivity
+    \item \textbf{\texttt{netstat}} - Network statistics
+    \item \textbf{\texttt{ss}} - Socket statistics
+    \item \textbf{\texttt{hostname}} - Show or set hostname
+\end{itemize}
+
+\subsection{SSH Configuration}
+\begin{itemize}
+    \item \textbf{Connect to remote server}: \texttt{ssh user@hostname}
+    \item \textbf{Copy files securely}: \texttt{scp file user@hostname:path}
+    \item \textbf{SSH configuration file}: \texttt{/etc/ssh/sshd\_config}
+\end{itemize}
+
+\subsection{Network Configuration Files}
+\begin{itemize}
+    \item \textbf{Debian/Ubuntu}: \texttt{/etc/network/interfaces}
+    \item \textbf{RedHat/CentOS}: \texttt{/etc/sysconfig/network-scripts/ifcfg-*}
+    \item \textbf{DNS Configuration}: \texttt{/etc/resolv.conf}
+    \item \textbf{Hosts file}: \texttt{/etc/hosts}
+\end{itemize}
+
+\newpage
+\section{Disk Management}
+\label{sec:diskmgmt}
+
+\subsection{Partition Management}
+\begin{itemize}
+    \item \textbf{\texttt{fdisk}} - Partition table manipulator
+    \item \textbf{\texttt{parted}} - Partition manipulation program
+    \item \textbf{\texttt{gdisk}} - GPT fdisk
+\end{itemize}
+
+\subsection{Filesystem Operations}
+\begin{itemize}
+    \item \textbf{\texttt{mkfs}} - Build a filesystem
+    \begin{itemize}
+        \item \texttt{mkfs.ext4} - Create ext4 filesystem
+        \item \texttt{mkfs.xfs} - Create XFS filesystem
+    \end{itemize}
+    \item \textbf{\texttt{mount}} - Mount filesystem
+    \item \textbf{\texttt{umount}} - Unmount filesystem
+    \item \textbf{\texttt{fsck}} - Check and repair filesystem
+\end{itemize}
+
+\subsection{Swap Management}
+\begin{itemize}
+    \item \textbf{\texttt{mkswap}} - Set up a Linux swap area
+    \item \textbf{\texttt{swapon}} - Enable swapping
+    \item \textbf{\texttt{swapoff}} - Disable swapping
+\end{itemize}
+
+\newpage
+\section{System Services and Runlevels}
+\label{sec:services}
+
+\subsection{Systemd Service Management}
+\begin{itemize}
+    \item \texttt{systemctl start service} - Start a service
+    \item \texttt{systemctl stop service} - Stop a service
+    \item \texttt{systemctl restart service} - Restart a service
+    \item \texttt{systemctl enable service} - Enable service at boot
+    \item \texttt{systemctl disable service} - Disable service at boot
+    \item \texttt{systemctl status service} - Check service status
+\end{itemize}
+
+\subsection{Runlevels}
+\begin{itemize}
+    \item \textbf{0} - Halt
+    \item \textbf{1} - Single user mode
+    \item \textbf{2} - Multi-user without NFS
+    \item \textbf{3} - Full multi-user mode
+    \item \textbf{4} - Unused
+    \item \textbf{5} - Graphical mode
+    \item \textbf{6} - Reboot
+\end{itemize}
+
+\subsection{Service Control Commands}
+\begin{itemize}
+    \item \textbf{\texttt{service}} - Run a System V init script
+    \item \textbf{\texttt{chkconfig}} - Update runlevel information
+    \item \textbf{\texttt{update-rc.d}} - Install/remove System-V style init links
+\end{itemize}
+
+\newpage
+\section{Shell Scripting Basics}
+\label{sec:scripting}
+
+\subsection{Shell Special Characters}
+\begin{itemize}
+    \item \textbf{\texttt{|}} - Pipe (redirect output)
+    \item \textbf{\texttt{;}} - Command separator
+    \item \textbf{\texttt{\&\&}} - Logical AND (run next command if previous succeeds)
+    \item \textbf{\texttt{||}} - Logical OR (run next command if previous fails)
+    \item \textbf{\texttt{>}} - Output redirection
+    \item \textbf{\texttt{>>}} - Append output
+    \item \textbf{\texttt{<}} - Input redirection
+    \item \textbf{\texttt{2>}} - Error redirection
+\end{itemize}
+
+\subsection{Variable Usage}
+\begin{lstlisting}[language=bash, caption=Shell variables]
+echo $USER       # Current username
+echo $HOME       # Home directory
+echo $PATH       # Command search path
+echo $SHELL      # Current shell
+echo $PWD        # Current directory
+echo $UID        # User ID
+echo $?          # Exit status of last command
+\end{lstlisting}
+
+\subsection{Bash Script Example}
+\begin{lstlisting}[language=bash, caption=Simple backup script]
+#!/bin/bash
+# Simple backup script
+
+BACKUP_DIR="/backup"
+SOURCE_DIR="/home/user/documents"
+DATE=$(date +%Y%m%d)
+
+if [ ! -d "$BACKUP_DIR" ]; then
+    mkdir -p "$BACKUP_DIR"
+fi
+
+tar -czf "$BACKUP_DIR/backup_$DATE.tar.gz" "$SOURCE_DIR"
+
+if [ $? -eq 0 ]; then
+    echo "Backup completed successfully!"
+else
+    echo "Backup failed!"
+fi
+\end{lstlisting}
+
+\newpage
+\section{Appendix: Quick Reference}
+\label{sec:appendix}
+
+\begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, title=\textbf{Essential Commands Cheat Sheet}]
+    Most frequently used Linux commands for LPIC-1
+\end{tcolorbox}
+
+\subsection{File Operations}
+\begin{tabular}{ll}
+    \textbf{Command} & \textbf{Description} \\
+    \hline
+    \texttt{ls -la} & List all files with details \\
+    \texttt{cp -r src dst} & Copy recursively \\
+    \texttt{mv old new} & Move/rename \\
+    \texttt{rm -rf dir} & Remove force recursively \\
+    \texttt{find / -name file} & Find files \\
+    \texttt{grep pattern file} & Search text \\
+\end{tabular}
+
+\subsection{System Monitoring}
+\begin{tabular}{ll}
+    \textbf{Command} & \textbf{Description} \\
+    \hline
+    \texttt{top} & Process monitor \\
+    \texttt{df -h} & Disk usage \\
+    \texttt{free -m} & Memory usage \\
+    \texttt{ps aux} & Process list \\
+    \texttt{netstat -tulpn} & Network connections \\
+\end{tabular}
+
+\subsection{User Management}
+\begin{tabular}{ll}
+    \textbf{Command} & \textbf{Description} \\
+    \hline
+    \texttt{useradd username} & Add user \\
+    \texttt{passwd username} & Change password \\
+    \texttt{usermod -aG group user} & Add user to group \\
+    \texttt{userdel -r username} & Delete user with home \\
+    \texttt{chmod 755 file} & Change permissions \\
+\end{tabular}
+
+\begin{center}
+    \rule{0.8\textwidth}{0.5pt}
+    \vspace{0.5cm}
+    
+    \textbf{\Large End of LPIC-1 Study Notes} \\
+    \vspace{0.2cm}
+    \small Good luck with your certification exam!
+\end{center}
+
+\end{document}
