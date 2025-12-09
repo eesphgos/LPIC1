@@ -1,2 +1,5 @@
-The lpic files about principle note file and the another is my note with deepseek design
-i guess the lpic is more complete than deepseek one
+The lpic files about principle note file 
+
+the deepseek file is my note with deepseek design
+
+the DP2Lpic1 is deepseek note and design
