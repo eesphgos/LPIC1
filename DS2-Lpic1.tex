@@ -1,0 +1,994 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[a4paper, margin=1in, headheight=24.64995pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% رنگ‌ها
+\definecolor{myblue}{RGB}{0, 112, 192}
+\definecolor{mygreen}{RGB}{0, 176, 80}
+\definecolor{myorange}{RGB}{255, 102, 0}
+\definecolor{myred}{RGB}{192, 0, 0}
+\definecolor{mygray}{RGB}{240, 240, 240}
+
+% تنظیمات صفحه
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{LPIC-1 Certification Notes}}
+\fancyhead[R]{\textbf{Exam 101-500 \& 102-500}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% تنظیمات بخش‌ها
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{myblue}}
+{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{mygreen!80!black}}
+{\thesubsection}{1em}{}
+\titlespacing{\subsection}{0pt}{10pt}{4pt}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries\color{myorange}}
+{\thesubsubsection}{1em}{}
+\titlespacing{\subsubsection}{0pt}{8pt}{2pt}
+
+% تنظیمات لیست
+\setlist[itemize]{leftmargin=*, label=$\bullet$}
+\setlist[enumerate]{leftmargin=*, label=\arabic*.}
+
+% تنظیمات کد
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{mygray},
+    tabsize=2,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{orange},
+    showstringspaces=false
+}
+
+% عنوان
+\title{
+    \textbf{\Huge LPIC-1: Linux Administrator} \\
+    \vspace{0.3cm}
+    \Large Complete Study Guide \& Reference Manual \\
+    \vspace{0.2cm}
+    \normalsize Based on Linux Professional Institute Certification
+}
+\author{
+    \textbf{Student Name} \\
+    \small \texttt{student@email.com}
+}
+\date{
+    \textbf{\today} \\
+    \small Version 2.0
+}
+
+\begin{document}
+
+% صفحه جلد
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    % لوگو
+    \begin{tikzpicture}
+        \fill[myblue] (0,0) circle (1.5cm);
+        \node[white, font=\Huge\bfseries] at (0,0) {L};
+        \node[white, font=\Large] at (0,-0.3) {PIC-1};
+    \end{tikzpicture}
+    
+    \vspace{1.5cm}
+    
+    {\Huge \bfseries Linux Professional Institute} \\
+    {\Huge \bfseries Certification Level 1}
+    
+    \vspace{0.5cm}
+    
+    {\Large Complete Study Guide \& Reference Manual}
+    
+    \vspace{1.5cm}
+    
+    \begin{tcolorbox}[
+        width=0.8\textwidth,
+        colback=myblue!5,
+        colframe=myblue,
+        arc=0mm,
+        boxrule=1pt,
+        title=\textbf{Exam Objectives Coverage}
+    ]
+        \begin{multicols}{2}
+            \begin{itemize}
+                \item[$\checkmark$] System Architecture
+                \item[$\checkmark$] Linux Installation
+                \item[$\checkmark$] GNU and Unix Commands
+                \item[$\checkmark$] Devices, Filesystems
+                \item[$\checkmark$] Shell Scripting
+                \item[$\checkmark$] User Interfaces
+                \item[$\checkmark$] Administrative Tasks
+                \item[$\checkmark$] Essential System Services
+                \item[$\checkmark$] Networking Fundamentals
+                \item[$\checkmark$] Security
+            \end{itemize}
+        \end{multicols}
+    \end{tcolorbox}
+    
+    \vfill
+    
+    {\large \textbf{Exam Codes:} 101-500 \& 102-500} \\
+    \vspace{0.2cm}
+    {\large \textbf{Last Updated:} \today} \\
+    \vspace{0.5cm}
+    {\small \textit{For educational purposes only}}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% معرفی
+\section{Introduction to LPIC-1 Certification}
+\label{sec:intro}
+
+\begin{tcolorbox}[
+    colback=myblue!5,
+    colframe=myblue,
+    title=\textbf{About LPIC-1 Certification}
+]
+    LPIC-1 is the first certification in the Linux Professional Institute's multi-level program. It validates the ability to perform maintenance tasks on the command line, install and configure a computer running Linux, and configure basic networking.
+\end{tcolorbox}
+
+\subsection{Exam Details}
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Parameter} & \textbf{Details} \\
+        \hline
+        Exam Code & 101-500 and 102-500 \\
+        \hline
+        Number of Questions & 60 per exam \\
+        \hline
+        Duration & 90 minutes per exam \\
+        \hline
+        Passing Score & 500/800 (62.5\%) \\
+        \hline
+        Required Score & Must pass both exams \\
+        \hline
+        Validity & 5 years \\
+        \hline
+    \end{tabularx}
+    \caption{LPIC-1 Exam Specifications}
+\end{table}
+
+\newpage
+
+% بخش 1: معماری سیستم
+\section{System Architecture}
+\label{sec:system-arch}
+
+\subsection{Determine and Configure Hardware Settings}
+
+\begin{tcolorbox}[colback=mygreen!5, colframe=mygreen, title=\textbf{Key Commands}]
+    \begin{lstlisting}[language=bash]
+# Hardware Information
+lspci          # List PCI devices
+lsusb          # List USB devices
+lsblk          # List block devices
+lscpu          # Show CPU information
+free -h        # Memory usage
+dmidecode      # DMI table decoder
+    \end{lstlisting}
+\end{tcolorbox}
+
+\subsubsection*{Important Files}
+\begin{itemize}
+    \item \texttt{/proc/cpuinfo} - CPU information
+    \item \texttt{/proc/meminfo} - Memory information
+    \item \texttt{/proc/interrupts} - IRQ assignments
+    \item \texttt{/proc/ioports} - I/O port assignments
+    \item \texttt{/proc/dma} - DMA channel assignments
+\end{itemize}
+
+\subsection{Boot the System}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Bootloader} & \textbf{Configuration File} & \textbf{Command} \\
+        \hline
+        GRUB Legacy & /boot/grub/menu.lst & grub-install \\
+        \hline
+        GRUB 2 & /boot/grub/grub.cfg & update-grub \\
+        \hline
+        LILO & /etc/lilo.conf & lilo \\
+        \hline
+    \end{tabular}
+    \caption{Linux Bootloaders}
+\end{table}
+
+\newpage
+
+% بخش 2: نصب لینوکس و مدیریت پکیج
+\section{Linux Installation and Package Management}
+\label{sec:install-pkg}
+
+\subsection{Design Hard Disk Layout}
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[
+        box/.style={draw, rectangle, minimum width=2cm, minimum height=1cm, align=center},
+        arrow/.style={->, >=stealth, thick}
+    ]
+        \node[box, fill=myblue!20] (root) {/ (root)};
+        \node[box, fill=mygreen!20, below left=1cm of root] (home) {/home};
+        \node[box, fill=myorange!20, below=1cm of root] (var) {/var};
+        \node[box, fill=myred!20, below right=1cm of root] (tmp) {/tmp};
+        \node[box, fill=gray!20, above=1cm of root] (boot) {/boot};
+        
+        \draw[arrow] (root) -- (home);
+        \draw[arrow] (root) -- (var);
+        \draw[arrow] (root) -- (tmp);
+        \draw[arrow] (boot) -- (root);
+    \end{tikzpicture}
+    \caption{Typical Linux Filesystem Hierarchy}
+\end{figure}
+
+\subsection{Install Boot Manager}
+\begin{lstlisting}[language=bash, caption=GRUB 2 Installation]
+# Install GRUB to MBR
+grub-install /dev/sda
+
+# Update GRUB configuration
+update-grub
+
+# For UEFI systems
+grub-install --target=x86_64-efi --efi-directory=/boot/efi
+\end{lstlisting}
+
+\subsection{Manage Shared Libraries}
+\begin{itemize}
+    \item \texttt{ldd} - Print shared library dependencies
+    \item \texttt{ldconfig} - Configure dynamic linker run-time bindings
+    \item \texttt{/etc/ld.so.conf} - Configuration file for ldconfig
+    \item \texttt{LD\_LIBRARY\_PATH} - Environment variable for libraries
+\end{itemize}
+
+\subsection{Package Management}
+\subsubsection*{Debian/Ubuntu (APT)}
+\begin{lstlisting}[language=bash]
+apt update                 # Update package list
+apt upgrade                # Upgrade packages
+apt install package        # Install package
+apt remove package         # Remove package
+apt search keyword         # Search for packages
+apt-cache show package     # Show package info
+dpkg -i package.deb        # Install .deb file
+dpkg -l                    # List installed packages
+\end{lstlisting}
+
+\subsubsection*{RHEL/CentOS/Fedora (YUM/DNF)}
+\begin{lstlisting}[language=bash]
+yum install package        # Install package
+yum remove package         # Remove package
+yum update                 # Update packages
+yum search keyword         # Search packages
+yum info package           # Package information
+rpm -i package.rpm         # Install .rpm file
+rpm -qa                    # List installed packages
+rpm -ql package            # List package files
+\end{lstlisting}
+
+\newpage
+
+% بخش 3: کامندهای GNU و Unix
+\section{GNU and Unix Commands}
+\label{sec:gnu-commands}
+
+\subsection{Work on the Command Line}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Command} & \textbf{Description} \\
+        \hline
+        \texttt{man command} & Display manual page \\
+        \hline
+        \texttt{info command} & Display info documentation \\
+        \hline
+        \texttt{whatis command} & One-line description \\
+        \hline
+        \texttt{which command} & Show full path of command \\
+        \hline
+        \texttt{whereis command} & Locate binary, source, and manual \\
+        \hline
+        \texttt{type command} & Display command type \\
+        \hline
+        \texttt{help} & Display shell built-in help \\
+        \hline
+    \end{tabular}
+    \caption{Help and Documentation Commands}
+\end{table}
+
+\subsection{Process Text Streams Using Filters}
+\begin{longtable}{|p{3cm}|p{10cm}|}
+    \hline
+    \textbf{Command} & \textbf{Description} \\
+    \hline
+    \endhead
+    
+    \texttt{cat} & Concatenate and display files \\
+    \hline
+    \texttt{tac} & Concatenate and display in reverse \\
+    \hline
+    \texttt{head} & Output first part of files \\
+    \hline
+    \texttt{tail} & Output last part of files \\
+    \hline
+    \texttt{cut} & Remove sections from lines \\
+    \hline
+    \texttt{paste} & Merge lines of files \\
+    \hline
+    \texttt{sort} & Sort lines of text \\
+    \hline
+    \texttt{uniq} & Report or omit repeated lines \\
+    \hline
+    \texttt{wc} & Print line, word, and byte counts \\
+    \hline
+    \texttt{tr} & Translate or delete characters \\
+    \hline
+    \texttt{expand} & Convert tabs to spaces \\
+    \hline
+    \texttt{unexpand} & Convert spaces to tabs \\
+    \hline
+    \texttt{nl} & Number lines of input \\
+    \hline
+    \texttt{od} & Dump files in octal and other formats \\
+    \hline
+    \texttt{fmt} & Simple text formatter \\
+    \hline
+    \texttt{pr} & Convert text files for printing \\
+    \hline
+\end{longtable}
+
+\subsection{Perform Basic File Management}
+\begin{lstlisting}[language=bash, caption=File Operations]
+# Copy files and directories
+cp file1 file2
+cp -r dir1 dir2
+
+# Move/rename files
+mv oldname newname
+mv file /path/to/destination/
+
+# Remove files and directories
+rm file
+rm -r directory
+rm -f file  # force removal
+
+# Create and remove directories
+mkdir newdir
+mkdir -p path/to/newdir
+rmdir emptydir
+
+# Create links
+ln -s target linkname  # symbolic link
+ln target linkname     # hard link
+\end{lstlisting}
+
+\subsection{Use Streams, Pipes, and Redirects}
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    box/.style={draw, rectangle, minimum width=2.5cm, minimum height=1.2cm},
+    arrow/.style={->, >=stealth, thick}
+]
+    \node[box] (input) {Input};
+    \node[box, right=of input] (process) {Process};
+    \node[box, right=of process] (output) {Output};
+    \node[box, below=0.8cm of process] (file) {File};
+    
+    \draw[arrow] (input) -- (process);
+    \draw[arrow] (process) -- (output);
+    \draw[arrow] (process) -- node[right] {> or >>} (file);
+    \draw[arrow] (file) -- node[left] {<} (process);
+\end{tikzpicture}
+\end{center}
+
+\begin{lstlisting}[language=bash, caption=I/O Redirection Examples]
+# Standard output redirection
+command > file        # Overwrite file
+command >> file       # Append to file
+
+# Standard error redirection
+command 2> error.log  # Redirect errors
+command 2>&1          # Merge stderr with stdout
+
+# Input redirection
+command < input.txt
+
+# Pipes
+command1 | command2 | command3
+
+# Here document
+cat << EOF
+This is a
+multiline
+text
+EOF
+\end{lstlisting}
+
+\subsection{Create, Monitor, and Kill Processes}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Signal} & \textbf{Number} & \textbf{Description} \\
+        \hline
+        SIGHUP & 1 & Hangup (reload configuration) \\
+        \hline
+        SIGINT & 2 & Interrupt (Ctrl+C) \\
+        \hline
+        SIGKILL & 9 & Kill (cannot be caught/ignored) \\
+        \hline
+        SIGTERM & 15 & Terminate (graceful shutdown) \\
+        \hline
+        SIGSTOP & 19 & Stop (pause process) \\
+        \hline
+        SIGCONT & 18 & Continue (resume process) \\
+        \hline
+    \end{tabular}
+    \caption{Common Linux Signals}
+\end{table}
+
+\subsubsection*{Process Management Commands}
+\begin{lstlisting}[language=bash]
+# Process viewing
+ps aux          # Show all processes
+ps -ef          # Full format listing
+top             # Interactive process viewer
+htop            # Enhanced top (if installed)
+pstree          # Show process tree
+
+# Process control
+kill PID        # Send TERM signal
+kill -9 PID     # Force kill
+killall name    # Kill all processes with name
+pkill pattern   # Kill by pattern
+
+# Job control
+jobs            # List jobs
+fg %n           # Bring job n to foreground
+bg %n           # Send job n to background
+Ctrl+Z          # Suspend foreground job
+Ctrl+C          # Interrupt process
+\end{lstlisting}
+
+\subsection{Modify Process Execution Priorities}
+\begin{itemize}
+    \item \texttt{nice} - Run a program with modified scheduling priority
+    \item \texttt{renice} - Alter priority of running process
+    \item Priority range: -20 (highest) to 19 (lowest)
+    \item Only root can set negative nice values
+\end{itemize}
+
+\begin{lstlisting}[language=bash, caption=Process Priority Examples]
+# Start process with low priority
+nice -n 10 command
+
+# Start process with high priority (root only)
+nice -n -10 command
+
+# Change priority of running process
+renice -5 PID
+\end{lstlisting}
+
+\newpage
+
+% بخش 4: دستگاه‌ها، فایل‌سیستم‌ها، و استاندارد FHS
+\section{Devices, Linux Filesystems, Filesystem Hierarchy Standard}
+\label{sec:filesystems}
+
+\subsection{Create Partitions and Filesystems}
+\begin{lstlisting}[language=bash, caption=Partition Management]
+# List disks and partitions
+fdisk -l
+lsblk
+parted -l
+
+# Create partition with fdisk
+fdisk /dev/sda
+# Commands in fdisk:
+# n - new partition
+# p - print partition table
+# d - delete partition
+# w - write changes and exit
+# q - quit without saving
+
+# Create partition with parted
+parted /dev/sda
+mkpart primary ext4 1MiB 1GiB
+
+# Create filesystem
+mkfs.ext4 /dev/sda1
+mkfs.xfs /dev/sda2
+mkfs.vfat /dev/sda3
+
+# Check filesystem
+fsck /dev/sda1
+e2fsck /dev/sda1
+\end{lstlisting}
+
+\subsection{Maintain the Integrity of Filesystems}
+\begin{itemize}
+    \item \texttt{du} - Estimate file space usage
+    \item \texttt{df} - Report filesystem disk space usage
+    \item \texttt{dumpe2fs} - Dump ext2/ext3/ext4 filesystem information
+    \item \texttt{tune2fs} - Adjust tunable filesystem parameters
+    \item \texttt{debugfs} - ext2/ext3/ext4 filesystem debugger
+    \item \texttt{xfs\_info} - XFS filesystem information
+\end{itemize}
+
+\subsection{Control Mounting and Unmounting of Filesystems}
+\begin{lstlisting}[language=bash, caption=Mount Operations]
+# Mount filesystem
+mount /dev/sda1 /mnt
+mount -t ext4 /dev/sda1 /mnt
+mount -o ro /dev/sda1 /mnt  # Read-only
+
+# Unmount filesystem
+umount /mnt
+umount /dev/sda1
+
+# List mounted filesystems
+mount
+cat /proc/mounts
+findmnt
+
+# Mount at boot (add to /etc/fstab)
+/dev/sda1   /mnt/data   ext4   defaults   0   2
+
+# Mount all from fstab
+mount -a
+\end{lstlisting}
+
+\subsection{Manage Disk Quotas}
+\begin{enumerate}
+    \item Install quota tools: \texttt{apt-get install quota}
+    \item Enable quotas in /etc/fstab: \texttt{usrquota,grpquota}
+    \item Remount filesystem: \texttt{mount -o remount /}
+    \item Create quota files: \texttt{quotacheck -cugm /}
+    \item Turn on quotas: \texttt{quotaon /}
+    \item Set quotas: \texttt{edquota username}
+\end{enumerate}
+
+\subsection{Manage File Permissions and Ownership}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|l|}
+        \hline
+        \textbf{Permission} & \textbf{Description} \\
+        \hline
+        777 & rwxrwxrwx (all permissions for all) \\
+        \hline
+        755 & rwxr-xr-x (owner: all, group/others: read+execute) \\
+        \hline
+        644 & rw-r--r-- (owner: read+write, others: read) \\
+        \hline
+        600 & rw------- (owner: read+write, others: none) \\
+        \hline
+        400 & r-------- (owner: read only) \\
+        \hline
+        775 & rwxrwxr-x (owner/group: all, others: read+execute) \\
+        \hline
+    \end{tabular}
+    \caption{Common Permission Numeric Codes}
+\end{table}
+
+\begin{lstlisting}[language=bash, caption=Permission Commands]
+# Change permissions
+chmod 755 file
+chmod u+x file            # Add execute for user
+chmod g-w file            # Remove write for group
+chmod o=r file            # Set others to read only
+chmod a+x file            # Add execute for all
+
+# Change ownership
+chown user file
+chown user:group file
+chown -R user directory   # Recursive
+
+# Change group
+chgrp group file
+chgrp -R group directory  # Recursive
+
+# Special permissions
+chmod +s file             # Set SUID/SGID
+chmod +t directory        # Sticky bit
+\end{lstlisting}
+
+\subsection{Create and Change Hard and Symbolic Links}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Feature} & \textbf{Hard Link} & \textbf{Symbolic Link} \\
+        \hline
+        Created with & \texttt{ln target link} & \texttt{ln -s target link} \\
+        \hline
+        Inode & Same as original & Different from original \\
+        \hline
+        Cross-filesystem & No & Yes \\
+        \hline
+        Directory linking & No & Yes \\
+        \hline
+        After original deleted & Still works & Broken link \\
+        \hline
+        File size & Same as original & Path length \\
+        \hline
+    \end{tabular}
+    \caption{Hard Links vs Symbolic Links}
+\end{table}
+
+\newpage
+
+% بخش 5: اسکریپت‌نویسی شل و مدیریت داده‌ها
+\section{Shell Scripting and Data Management}
+\label{sec:shell-scripting}
+
+\subsection{Customize and Use the Shell Environment}
+\begin{lstlisting}[language=bash, caption=Shell Configuration]
+# Environment variables
+echo $PATH              # Command search path
+echo $HOME              # Home directory
+echo $USER              # Current user
+echo $SHELL             # Current shell
+echo $PS1               # Prompt string
+echo $PWD               # Present working directory
+
+# Set environment variables
+export VAR=value        # For current shell and children
+VAR=value               # For current shell only
+
+# Shell configuration files
+~/.bashrc               # Non-login interactive shells
+~/.bash_profile         # Login shells
+~/.profile              # Alternative profile
+/etc/bashrc             # System-wide bashrc
+/etc/profile            # System-wide profile
+
+# Aliases
+alias ll='ls -la'
+alias rm='rm -i'
+unalias ll              # Remove alias
+\end{lstlisting}
+
+\subsection{Customize or Write Simple Scripts}
+\begin{lstlisting}[language=bash, caption=Basic Shell Script Template]
+#!/bin/bash
+# Script: backup.sh
+# Description: Backup script example
+# Author: Your Name
+# Date: $(date)
+
+# Configuration
+BACKUP_DIR="/backup"
+SOURCE_DIR="/home/user/documents"
+DATE=$(date +%Y%m%d_%H%M%S)
+LOG_FILE="/var/log/backup.log"
+
+# Functions
+log_message() {
+    echo "[$(date)] $1" >> "$LOG_FILE"
+    echo "$1"
+}
+
+# Check if running as root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" >&2
+    exit 1
+fi
+
+# Check if source directory exists
+if [ ! -d "$SOURCE_DIR" ]; then
+    log_message "ERROR: Source directory $SOURCE_DIR not found"
+    exit 1
+fi
+
+# Create backup directory if it doesn't exist
+mkdir -p "$BACKUP_DIR"
+
+# Perform backup
+log_message "Starting backup of $SOURCE_DIR"
+tar -czf "$BACKUP_DIR/backup_$DATE.tar.gz" "$SOURCE_DIR"
+
+# Check if backup was successful
+if [ $? -eq 0 ]; then
+    log_message "Backup completed successfully: backup_$DATE.tar.gz"
+    # Remove backups older than 30 days
+    find "$BACKUP_DIR" -name "*.tar.gz" -mtime +30 -delete
+else
+    log_message "ERROR: Backup failed"
+    exit 1
+fi
+
+log_message "Backup process completed"
+\end{lstlisting}
+
+\newpage
+
+% بخش 6: کاربران و گروه‌ها
+\section{User and Group Administration}
+\label{sec:user-admin}
+
+\subsection{Manage User and Group Accounts}
+\begin{lstlisting}[language=bash, caption=User Management Commands]
+# Add user
+useradd username
+useradd -m username      # Create home directory
+useradd -g groupname username  # Primary group
+useradd -G group1,group2 username  # Supplementary groups
+useradd -s /bin/bash username  # Specify shell
+
+# Modify user
+usermod -aG groupname username  # Add to group
+usermod -s /bin/sh username     # Change shell
+usermod -L username            # Lock account
+usermod -U username            # Unlock account
+
+# Delete user
+userdel username
+userdel -r username     # Remove home directory and mail
+
+# Manage groups
+groupadd groupname
+groupdel groupname
+gpasswd -a username groupname  # Add user to group
+gpasswd -d username groupname  # Remove user from group
+
+# Password management
+passwd username
+passwd -l username      # Lock password
+passwd -u username      # Unlock password
+chage username          # Change password aging
+\end{lstlisting}
+
+\subsection{Configure User Environment}
+\begin{itemize}
+    \item \texttt{/etc/passwd} - User account information
+    \item \texttt{/etc/shadow} - Secure user password information
+    \item \texttt{/etc/group} - Group information
+    \item \texttt{/etc/gshadow} - Secure group password information
+    \item \texttt{/etc/skel/} - Skeleton directory for new users
+    \item \texttt{/etc/login.defs} - Configuration for useradd
+\end{itemize}
+
+\newpage
+
+% بخش 7: امنیت
+\section{Security}
+\label{sec:security}
+
+\subsection{Perform Security Administration Tasks}
+\begin{itemize}
+    \item \texttt{su} - Switch user
+    \item \texttt{sudo} - Execute commands as another user
+    \item \texttt{visudo} - Edit sudoers file safely
+    \item \texttt{chroot} - Run command with special root directory
+    \item \texttt{setuid/setgid} - Special file permissions
+    \item \texttt{umask} - Default file permissions
+\end{itemize}
+
+\subsection{Set Up Host Security}
+\begin{lstlisting}[language=bash, caption=Security Commands]
+# SSH configuration
+/etc/ssh/sshd_config    # SSH server configuration
+ssh-keygen              # Generate SSH keys
+ssh-copy-id             # Copy SSH key to remote host
+
+# Firewall management (iptables)
+iptables -L             # List rules
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -j DROP
+
+# Firewall management (firewalld)
+firewall-cmd --list-all
+firewall-cmd --add-port=80/tcp --permanent
+firewall-cmd --reload
+
+# SELinux management
+getenforce              # Check SELinux status
+sestatus                # Detailed SELinux status
+setenforce 0            # Disable SELinux (temporary)
+setenforce 1            # Enable SELinux (temporary)
+\end{lstlisting}
+
+\newpage
+
+% بخش 8: شبکه
+\section{Networking}
+\label{sec:networking}
+
+\subsection{Fundamentals of Internet Protocols}
+\begin{itemize}
+    \item TCP/IP Protocol Suite
+    \item IPv4 and IPv6 Addressing
+    \item Subnetting and CIDR Notation
+    \item Common Ports and Services
+    \begin{itemize}
+        \item 22 - SSH
+        \item 80 - HTTP
+        \item 443 - HTTPS
+        \item 53 - DNS
+        \item 25 - SMTP
+        \item 110 - POP3
+        \item 143 - IMAP
+    \end{itemize}
+\end{itemize}
+
+\subsection{Basic Network Configuration}
+\begin{lstlisting}[language=bash, caption=Network Commands]
+# Network interface configuration
+ifconfig eth0 192.168.1.100 netmask 255.255.255.0
+ip addr add 192.168.1.100/24 dev eth0
+
+# Network interface control
+ifconfig eth0 down
+ifconfig eth0 up
+ip link set eth0 down
+ip link set eth0 up
+
+# Routing configuration
+route add default gw 192.168.1.1
+ip route add default via 192.168.1.1
+route -n
+ip route show
+
+# DNS configuration
+/etc/resolv.conf        # DNS resolver configuration
+/etc/hosts              # Local hostname resolution
+\end{lstlisting}
+
+\subsection{Troubleshooting Network Issues}
+\begin{lstlisting}[language=bash]
+ping google.com          # Test connectivity
+traceroute google.com    # Trace route
+netstat -tulpn           # Show open ports
+ss -tulpn                # Alternative to netstat
+nslookup google.com      # DNS lookup
+dig google.com           # DNS query
+host google.com          # Hostname lookup
+\end{lstlisting}
+
+\newpage
+
+% بخش 9: سرویس‌های ضروری
+\section{Essential System Services}
+\label{sec:services}
+
+\subsection{System Logging}
+\begin{itemize}
+    \item \texttt{rsyslog} - System logging daemon
+    \item \texttt{/etc/rsyslog.conf} - Configuration file
+    \item \texttt{/var/log/} - Log directory
+    \begin{itemize}
+        \item \texttt{messages} - General system messages
+        \item \texttt{auth.log} - Authentication logs
+        \item \texttt{syslog} - System logs
+        \item \texttt{kern.log} - Kernel logs
+        \item \texttt{dpkg.log} - Package manager logs
+    \end{itemize}
+    \item \texttt{logrotate} - Rotate, compress, and mail logs
+\end{itemize}
+
+\subsection{Time Synchronization}
+\begin{itemize}
+    \item \texttt{ntpd} - Network Time Protocol daemon
+    \item \texttt{chronyd} - Chrony NTP daemon
+    \item \texttt{date} - Display or set system date and time
+    \item \texttt{timedatectl} - Control system time and date
+    \item \texttt{hwclock} - Hardware clock access
+\end{itemize}
+
+\subsection{Mail Transfer Agent (MTA) Basics}
+\begin{itemize}
+    \item \texttt{postfix} - Mail transfer agent
+    \item \texttt{sendmail} - Alternative MTA
+    \item \texttt{mail} - Send and receive mail
+    \item \texttt{mailq} - Print mail queue
+\end{itemize}
+
+\newpage
+
+% بخش پایانی
+\section{Appendix: Exam Tips and Resources}
+\label{sec:appendix}
+
+\begin{tcolorbox}[
+    colback=myorange!5,
+    colframe=myorange,
+    title=\textbf{Exam Preparation Tips}
+]
+    \begin{itemize}
+        \item \textbf{Practice on real Linux systems} - Use VirtualBox or VMware
+        \item \textbf{Learn command line options} - Focus on commonly used switches
+        \item \textbf{Understand configuration files} - Know location and syntax
+        \item \textbf{Time management} - Each question has about 1.5 minutes
+        \item \textbf{Read questions carefully} - Pay attention to details
+        \item \textbf{Use elimination method} - Remove obviously wrong answers
+    \end{itemize}
+\end{tcolorbox}
+
+\subsection{Recommended Resources}
+\begin{itemize}
+    \item \textbf{Official LPIC-1 Objectives}: https://www.lpi.org/our-certifications/exam-101-objectives
+    \item \textbf{LPIC-1 Study Guide} by Christine Bresnahan and Richard Blum
+    \item \textbf{Linux Command Line and Shell Scripting Bible} by Richard Blum
+    \item \textbf{Online Practice Exams}: Boson, ExamCompass, ExamTopics
+    \item \textbf{Linux Documentation Project}: https://tldp.org/
+\end{itemize}
+
+\subsection{Command Quick Reference}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Category} & \textbf{Key Commands} \\
+        \hline
+        File Management & ls, cp, mv, rm, find, chmod, chown \\
+        \hline
+        Process Management & ps, top, kill, nice, jobs \\
+        \hline
+        Text Processing & grep, sed, awk, cut, sort, uniq \\
+        \hline
+        Networking & ping, ifconfig, netstat, ssh, scp \\
+        \hline
+        Package Management & apt, yum, dpkg, rpm \\
+        \hline
+        System Info & uname, df, du, free, lspci, lsusb \\
+        \hline
+        User Management & useradd, usermod, passwd, groupadd \\
+        \hline
+        Disk Management & fdisk, mkfs, mount, fsck \\
+        \hline
+    \end{tabular}
+    \caption{LPIC-1 Essential Commands}
+\end{table}
+
+\begin{center}
+\vspace{1cm}
+\hrule
+\vspace{0.5cm}
+\textbf{\Large Good Luck with Your LPIC-1 Certification!} \\
+\vspace{0.2cm}
+\textit{Remember: Practice is key to success in Linux administration.}
+\vspace{0.5cm}
+\hrule
+\end{center}
+
+\end{document}
